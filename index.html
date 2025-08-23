@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspirational Quotes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 0 20px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .tab.active {
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            color: #000;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(255, 126, 95, 0.4);
+        }
+
+        .tab:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .content {
+            padding: 30px;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 30px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .quote-text {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .quote-author {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        .image-container {
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .inspirational-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .inspirational-image:hover {
+            transform: scale(1.05);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            border: none;
+            border-radius: 30px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(255, 126, 95, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 126, 95, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .spinner {
+            width: 70px;
+            height: 70px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #ff7e5f;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .source-info {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: rgba(0, 0, 0, 0.8);
+            border-left: 4px solid #ff7e5f;
+            border-radius: 4px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .quote-text {
+                font-size: 1.5rem;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .image-container {
+                height: 300px;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Inspirational Quotes</h1>
+            <p class="tagline">Daily motivation for your mind and soul</p>
+            <div class="tabs">
+                <div class="tab active" data-tab="random">Random Quotes</div>
+                <div class="tab" data-tab="today">Today's Quotes</div>
+                <div class="tab" data-tab="image">Inspirational Images</div>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Random Quotes Section -->
+            <div class="content-section" id="random-content">
+                <div class="card">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Fetching an inspirational quote...</p>
+                    </div>
+                    <div class="quote-container hidden">
+                        <p class="quote-text" id="random-quote"></p>
+                        <p class="quote-author" id="random-author"></p>
+                        <div class="source-info">Source: <span id="random-source"></span></div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="btn" id="new-random">
+                        <i class="fas fa-sync"></i> New Quote
+                    </button>
+                    <button class="btn btn-secondary" id="share-random">
+                        <i class="fas fa-share-alt"></i> Share
+                    </button>
+                    <button class="btn btn-secondary" id="copy-random">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+            </div>
+
+            <!-- Today's Quotes Section -->
+            <div class="content-section hidden" id="today-content">
+                <div class="card">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Fetching today's quote...</p>
+                    </div>
+                    <div class="quote-container hidden">
+                        <p class="quote-text" id="today-quote"></p>
+                        <p class="quote-author" id="today-author"></p>
+                        <div class="source-info">Source: <span id="today-source"></span></div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="btn" id="new-today">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
+                    <button class="btn btn-secondary" id="share-today">
+                        <i class="fas fa-share-alt"></i> Share
+                    </button>
+                    <button class="btn btn-secondary" id="copy-today">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+            </div>
+
+            <!-- Image Section -->
+            <div class="content-section hidden" id="image-content">
+                <div class="card">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Loading inspirational image...</p>
+                    </div>
+                    <div class="image-container hidden">
+                        <img src="" alt="Inspirational Image" class="inspirational-image" id="inspiration-image">
+                    </div>
+                    <div class="quote-container hidden">
+                        <p class="quote-text" id="image-quote"></p>
+                        <p class="quote-author" id="image-author"></p>
+                        <div class="source-info">Source: <span id="image-source"></span></div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="btn" id="new-image">
+                        <i class="fas fa-sync"></i> New Image
+                    </button>
+                    <button class="btn btn-secondary" id="download-image">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                    <button class="btn btn-secondary" id="share-image">
+                        <i class="fas fa-share-alt"></i> Share
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Made with <i class="fas fa-heart" style="color: #ff7e5f;"></i> for inspiration seekers</p>
+            <p>© 2023 Inspirational Quotes App</p>
+        </footer>
+    </div>
+
+    <div class="notification" id="notification">
+        Content copied to clipboard!
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const tabs = document.querySelectorAll('.tab');
+            const contentSections = document.querySelectorAll('.content-section');
+            const notification = document.getElementById('notification');
+            
+            // API endpoints
+            const RANDOM_SOURCES = [
+                {name: "zenquotes", url: "https://zenquotes.io/api/random", type: "zen"},
+                {name: "quotable", url: "https://api.quotable.io/random", type: "quotable"}
+            ];
+            
+            const TODAY_SOURCES = [
+                {name: "zenquotes_today", url: "https://zenquotes.io/api/today", type: "zen_today"},
+                {name: "quotable", url: "https://api.quotable.io/random", type: "quotable"}
+            ];
+            
+            const IMAGE_SOURCES = [
+                {name: "picsum", url: "https://picsum.photos/1200/700", type: "picsum"},
+                {name: "nature", url: "https://source.unsplash.com/random/1200x700/?nature", type: "unsplash"}
+            ];
+            
+            // Current active tab
+            let activeTab = 'random';
+            
+            // Tab switching
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabName = tab.getAttribute('data-tab');
+                    
+                    // Update active tab visual
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Hide all content sections
+                    contentSections.forEach(section => {
+                        section.classList.add('hidden');
+                    });
+                    
+                    // Show active content section
+                    document.getElementById(`${tabName}-content`).classList.remove('hidden');
+                    
+                    // Update active tab
+                    activeTab = tabName;
+                    
+                    // Load content if needed
+                    if (tabName === 'random') {
+                        loadRandomQuote();
+                    } else if (tabName === 'today') {
+                        loadTodayQuote();
+                    } else if (tabName === 'image') {
+                        loadImage();
+                    }
+                });
+            });
+            
+            // Button events
+            document.getElementById('new-random').addEventListener('click', loadRandomQuote);
+            document.getElementById('new-today').addEventListener('click', loadTodayQuote);
+            document.getElementById('new-image').addEventListener('click', loadImage);
+            
+            // Share buttons
+            document.getElementById('share-random').addEventListener('click', () => shareQuote('random'));
+            document.getElementById('share-today').addEventListener('click', () => shareQuote('today'));
+            document.getElementById('share-image').addEventListener('click', () => shareQuote('image'));
+            
+            // Copy buttons
+            document.getElementById('copy-random').addEventListener('click', () => copyQuote('random'));
+            document.getElementById('copy-today').addEventListener('click', () => copyQuote('today'));
+            
+            // Download image
+            document.getElementById('download-image').addEventListener('click', downloadImage);
+            
+            // Initial load
+            loadRandomQuote();
+            
+            // Function to load a random quote
+            async function loadRandomQuote() {
+                const card = document.querySelector('#random-content .card');
+                const loading = card.querySelector('.loading');
+                const quoteContainer = card.querySelector('.quote-container');
+                
+                // Show loading, hide quote
+                loading.classList.remove('hidden');
+                quoteContainer.classList.add('hidden');
+                
+                try {
+                    // Try each source until one works
+                    for (const source of RANDOM_SOURCES) {
+                        try {
+                            const response = await fetchWithTimeout(source.url, {timeout: 5000});
+                            if (!response.ok) continue;
+                            
+                            const data = await response.json();
+                            let quote, author;
+                            
+                            if (source.type === 'zen') {
+                                quote = data[0].q;
+                                author = data[0].a;
+                            } else if (source.type === 'quotable') {
+                                quote = data.content;
+                                author = data.author;
+                            }
+                            
+                            // Update DOM
+                            document.getElementById('random-quote').textContent = quote;
+                            document.getElementById('random-author').textContent = `— ${author}`;
+                            document.getElementById('random-source').textContent = source.name;
+                            
+                            // Show quote, hide loading
+                            loading.classList.add('hidden');
+                            quoteContainer.classList.remove('hidden');
+                            
+                            return; // Exit if successful
+                        } catch (err) {
+                            console.error(`Error with ${source.name}:`, err);
+                            continue; // Try next source
+                        }
+                    }
+                    
+                    // If all sources fail
+                    throw new Error('All random quote sources failed');
+                } catch (err) {
+                    console.error('Error loading random quote:', err);
+                    document.getElementById('random-quote').textContent = 
+                        "The best inspiration comes from within. Even when external sources fail, remember you have wisdom inside.";
+                    document.getElementById('random-author').textContent = "— Your Inner Voice";
+                    document.getElementById('random-source').textContent = "App Wisdom";
+                    
+                    loading.classList.add('hidden');
+                    quoteContainer.classList.remove('hidden');
+                }
+            }
+            
+            // Function to load today's quote
+            async function loadTodayQuote() {
+                const card = document.querySelector('#today-content .card');
+                const loading = card.querySelector('.loading');
+                const quoteContainer = card.querySelector('.quote-container');
+                
+                // Show loading, hide quote
+                loading.classList.remove('hidden');
+                quoteContainer.classList.add('hidden');
+                
+                try {
+                    // Try each source until one works
+                    for (const source of TODAY_SOURCES) {
+                        try {
+                            const response = await fetchWithTimeout(source.url, {timeout: 5000});
+                            if (!response.ok) continue;
+                            
+                            const data = await response.json();
+                            let quote, author;
+                            
+                            if (source.type === 'zen_today') {
+                                quote = data[0].q;
+                                author = data[0].a;
+                            } else if (source.type === 'quotable') {
+                                quote = data.content;
+                                author = data.author;
+                            }
+                            
+                            // Update DOM
+                            document.getElementById('today-quote').textContent = quote;
+                            document.getElementById('today-author').textContent = `— ${author}`;
+                            document.getElementById('today-source').textContent = source.name;
+                            
+                            // Show quote, hide loading
+                            loading.classList.add('hidden');
+                            quoteContainer.classList.remove('hidden');
+                            
+                            return; // Exit if successful
+                        } catch (err) {
+                            console.error(`Error with ${source.name}:`, err);
+                            continue; // Try next source
+                        }
+                    }
+                    
+                    // If all sources fail
+                    throw new Error('All today quote sources failed');
+                } catch (err) {
+                    console.error('Error loading today quote:', err);
+                    document.getElementById('today-quote').textContent = 
+                        "Today is a new opportunity to make a positive impact. Even without a fresh quote, make it count.";
+                    document.getElementById('today-author').textContent = "— Your Future Self";
+                    document.getElementById('today-source').textContent = "App Wisdom";
+                    
+                    loading.classList.add('hidden');
+                    quoteContainer.classList.remove('hidden');
+                }
+            }
+            
+            // Function to load an image
+            async function loadImage() {
+                const card = document.querySelector('#image-content .card');
+                const loading = card.querySelector('.loading');
+                const imageContainer = card.querySelector('.image-container');
+                const quoteContainer = card.querySelector('.quote-container');
+                
+                // Show loading, hide content
+                loading.classList.remove('hidden');
+                imageContainer.classList.add('hidden');
+                quoteContainer.classList.add('hidden');
+                
+                try {
+                    // Try each source until one works
+                    for (const source of IMAGE_SOURCES) {
+                        try {
+                            // For image sources, we'll use a random image with cache busting
+                            const timestamp = new Date().getTime();
+                            const imageUrl = `${source.url}?${timestamp}`;
+                            
+                            // Create a promise to load the image
+                            const imgLoadPromise = new Promise((resolve, reject) => {
+                                const img = new Image();
+                                img.onload = () => resolve(img);
+                                img.onerror = () => reject(new Error('Failed to load image'));
+                                img.src = imageUrl;
+                            });
+                            
+                            const img = await Promise.race([
+                                imgLoadPromise,
+                                new Promise((_, reject) => 
+                                    setTimeout(() => reject(new Error('Image load timeout')), 10000)
+                                )
+                            ]);
+                            
+                            // Update DOM
+                            document.getElementById('inspiration-image').src = img.src;
+                            document.getElementById('image-quote').textContent = "Beauty is everywhere. You only need to look with open eyes and an open heart.";
+                            document.getElementById('image-author').textContent = "— Unknown";
+                            document.getElementById('image-source').textContent = source.name;
+                            
+                            // Show content, hide loading
+                            loading.classList.add('hidden');
+                            imageContainer.classList.remove('hidden');
+                            quoteContainer.classList.remove('hidden');
+                            
+                            return; // Exit if successful
+                        } catch (err) {
+                            console.error(`Error with ${source.name}:`, err);
+                            continue; // Try next source
+                        }
+                    }
+                    
+                    // If all sources fail
+                    throw new Error('All image sources failed');
+                } catch (err) {
+                    console.error('Error loading image:', err);
+                    // Show placeholder content
+                    document.getElementById('inspiration-image').src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%23333'/%3E%3Ctext x='400' y='200' font-family='Arial' font-size='30' fill='%23fff' text-anchor='middle'%3EImage not available%3C/text%3E%3C/svg%3E";
+                    document.getElementById('image-quote').textContent = 
+                        "Even without an image, you can find beauty in your mind's eye. Close your eyes and imagine a peaceful place.";
+                    document.getElementById('image-author').textContent = "— Your Imagination";
+                    document.getElementById('image-source').textContent = "App Fallback";
+                    
+                    loading.classList.add('hidden');
+                    imageContainer.classList.remove('hidden');
+                    quoteContainer.classList.remove('hidden');
+                }
+            }
+            
+            // Function to share a quote
+            async function shareQuote(type) {
+                let text, url;
+                
+                if (type === 'image') {
+                    text = "Check out this inspirational image!";
+                    url = document.getElementById('inspiration-image').src;
+                } else {
+                    const quoteText = document.getElementById(`${type}-quote`).textContent;
+                    const quoteAuthor = document.getElementById(`${type}-author`).textContent;
+                    text = `${quoteText} ${quoteAuthor}`;
+                }
+                
+                const shareData = {
+                    title: "Inspirational Quote",
+                    text: text,
+                    url: type === 'image' ? url : window.location.href
+                };
+                
+                try {
+                    if (navigator.share) {
+                        await navigator.share(shareData);
+                    } else {
+                        // Fallback for browsers that don't support Web Share API
+                        await navigator.clipboard.writeText(text);
+                        showNotification("Content copied to clipboard!");
+                    }
+                } catch (err) {
+                    console.error('Error sharing:', err);
+                }
+            }
+            
+            // Function to copy quote to clipboard
+            async function copyQuote(type) {
+                const quoteText = document.getElementById(`${type}-quote`).textContent;
+                const quoteAuthor = document.getElementById(`${type}-author`).textContent;
+                
+                try {
+                    await navigator.clipboard.writeText(`${quoteText} ${quoteAuthor}`);
+                    showNotification("Quote copied to clipboard!");
+                } catch (err) {
+                    console.error('Failed to copy:', err);
+                }
+            }
+            
+            // Function to download image
+            function downloadImage() {
+                const image = document.getElementById('inspiration-image');
+                const imageUrl = image.src;
+                
+                // Create a temporary link
+                const link = document.createElement('a');
+                link.href = imageUrl;
+                link.download = 'inspirational-image.jpg';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+            
+            // Helper function for fetch with timeout
+            function fetchWithTimeout(url, options = {}) {
+                const { timeout = 8000, ...fetchOptions } = options;
+                
+                return Promise.race([
+                    fetch(url, fetchOptions),
+                    new Promise((_, reject) =>
+                        setTimeout(() => reject(new Error('Request timeout')), timeout)
+                    )
+                ]);
+            }
+            
+            // Show notification
+            function showNotification(message) {
+                notification.textContent = message;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
